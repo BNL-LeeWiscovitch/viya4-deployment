@@ -1,0 +1,39 @@
+## Cluster
+NAMESPACE: viya-ns
+
+## MISC
+DEPLOY: true # Set to false to stop at generating the manifest
+LOADBALANCER_SOURCE_RANGES: ['192.168.0.0/16'] # When deploying in the cloud, be sure to add the cloud nat ip...adding entire vpc for debugging purposes
+
+## Storage 
+V4_CFG_MANAGE_STORAGE: true
+
+## SAS API Access
+V4_CFG_SAS_API_KEY: "{{ sas_api_key }}"
+V4_CFG_SAS_API_SECRET: "{{ sas_api_secret }}"
+V4_CFG_ORDER_NUMBER:  "{{ sas_order_number }}"
+
+## CR Access - By default, credentials are already included in the downloaded deploymentAssets
+## going to disable these for initial run
+#V4_CFG_CR_USER: <container_registry_user>
+#V4_CFG_CR_PASSWORD: <container_registry_password>
+
+## Ingress
+V4_CFG_INGRESS_TYPE: ingress
+V4_CFG_INGRESS_FQDN: "{{ viya_eks_ingress_fqdn }}"
+V4_CFG_TLS_MODE: "full-stack" # [full-stack|front-door|disabled]
+
+## Postgres
+
+## LDAP
+V4_CFG_EMBEDDED_LDAP_ENABLE: true
+
+## Consul UI
+V4_CFG_CONSUL_ENABLE_LOADBALANCER: false
+
+## SAS/CONNECT
+V4_CFG_CONNECT_ENABLE_LOADBALANCER: false
+
+## Monitoring and Logging
+## uncomment and update the below values when deploying the viya4-monitoring-kubernetes stack
+#V4M_BASE_DOMAIN: <base_domain>
