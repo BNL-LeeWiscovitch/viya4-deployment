@@ -59,9 +59,15 @@ since we have sensitive information, and can't make the repo private, need to ma
 
 since you can't run ansible on windows, need to make/edit the vault on admin-pl-cli02
 
+create new vault at /deployments/viya-eks/viya-ns
 
+```shell
+ansible-vault create /deployments/viya-eks/viya-ns/vault.yml
+```
 
+>password is stored in bitwarden as "viya-eks-ansible-vault"
 
+any future edits has to be done on admin-pl-cli002 (or another instance with github/ansible)
 
 sas order api
 
@@ -69,4 +75,4 @@ sas order api
 
 created new app called "viya-eks" and enabled the sas viya orders api and saved it.
 
-this created a new api key, stored in bitwarden as "viya-eks-sas-api"
+this created a new api key, stored in bitwarden as "viya-eks-sas-api", stored in ansible vault as well.
