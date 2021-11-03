@@ -128,6 +128,3 @@ common : Load config file ----------------------------------------------- 0.05s
 ```
 
 is that because of the vault? it didn't prompt for password
-=======
-test
->>>>>>> b0b143f05565bcd5ab05788c6366b32ddbb09f9f
