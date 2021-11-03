@@ -80,51 +80,33 @@ this created a new api key, stored in bitwarden as "viya-eks-sas-api", stored in
 <<<<<<< HEAD
 ## test run
 
-need to copy the 
-
-probably going to fail, but let's see where/how:
+this is just to install the basics for viya (no monitoring/logging, as those were failing)
 
 ```txt
 docker run --rm \
   --group-add root \
   --user $(id -u):$(id -g) \
-  --volume $HOME/deployments:/data \
-  --volume $HOME/deployments/viya-eks/viya-ns/ansible-vars-iac.yaml:/config/config \
+  --volume /home/lee.wiscovitch/viya4-deployment/deployments:/data \
+  --volume /home/lee.wiscovitch/viya4-deployment/deployments/viya-eks/viya-ns/ansible-vars-iac.yaml:/config/config \
   --volume /home/lee.wiscovitch/viya4-iac-aws/terraform.tfstate:/config/tfstate \
   --volume /home/lee.wiscovitch/.ssh/id_rsa:/config/jump_svr_private_key \
-  viya4-deployment --tags "baseline,viya,cluster-logging,cluster-monitoring,viya-monitoring,install"
+  viya4-deployment --tags "baseline,viya,install" \
+  --vault-password-file /home/lee.wiscovitch/.vault.txt \
+  -vvvv
 ```
 
 ### fail
 
 ```txt
-
-Running: ansible-playbook -e BASE_DIR=/data -e CONFIG=/config/config -e JUMP_SVR_PRIVATE_KEY=/config/jump_svr_private_key -e TFSTATE=/config/tfstate --tags baseline,viya,cluster-logging,cluster-monitoring,viya-monitoring,install playbooks/playbook.yaml
-
-PLAY [localhost] ***************************************************************
-Tuesday 02 November 2021  20:47:17 +0000 (0:00:00.021)       0:00:00.021 ****** 
-
-TASK [Gathering Facts] *********************************************************
-ok: [localhost]
-Tuesday 02 November 2021  20:47:18 +0000 (0:00:01.016)       0:00:01.037 ****** 
-
-TASK [global tmp dir] **********************************************************
-changed: [localhost]
-Tuesday 02 November 2021  20:47:19 +0000 (0:00:00.354)       0:00:01.392 ****** 
-Tuesday 02 November 2021  20:47:19 +0000 (0:00:00.050)       0:00:01.443 ****** 
-
-TASK [common : Load config file] ***********************************************
-fatal: [localhost]: FAILED! => {"ansible_facts": {}, "ansible_included_var_files": [], "changed": false, "message": "an error occurred while trying to read the file '/config/config': [Errno 21] Is a directory: b'/config/config'"}
-
-PLAY RECAP *********************************************************************
-localhost                  : ok=2    changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
-
-Tuesday 02 November 2021  20:47:19 +0000 (0:00:00.045)       0:00:01.488 ****** 
-=============================================================================== 
-Gathering Facts --------------------------------------------------------- 1.02s
-global tmp dir ---------------------------------------------------------- 0.35s
-common role ------------------------------------------------------------- 0.05s
-common : Load config file ----------------------------------------------- 0.05s
+Running: ansible-playbook -e BASE_DIR=/data -e CONFIG=/config/config -e JUMP_SVR_PRIVATE_KEY=/config/jump_svr_private_key -e TFSTATE=/config/tfstate --tags baseline,viya,install --vault-password-file /home/lee.wiscovitch/.vault.txt -vvvv playbooks/playbook.yaml
+ansible-playbook 2.10.15
+  config file = /viya4-deployment/ansible.cfg
+  configured module search path = ['/usr/share/ansible', '/viya4-deployment/plugins/modules']
+  ansible python module location = /usr/local/lib/python3.8/dist-packages/ansible
+  executable location = /usr/local/bin/ansible-playbook
+  python version = 3.8.10 (default, Sep 28 2021, 16:10:42) [GCC 9.3.0]
+Using /viya4-deployment/ansible.cfg as config file
+ERROR! The vault password file /home/lee.wiscovitch/.vault.txt was not found
 ```
 
-is that because of the vault? it didn't prompt for password
+
