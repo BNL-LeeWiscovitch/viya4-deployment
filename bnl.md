@@ -77,6 +77,7 @@ created new app called "viya-eks" and enabled the sas viya orders api and saved 
 
 this created a new api key, stored in bitwarden as "viya-eks-sas-api", stored in ansible vault as well.
 
+<<<<<<< HEAD
 ## test run
 
 need to copy the 
@@ -127,3 +128,6 @@ common : Load config file ----------------------------------------------- 0.05s
 ```
 
 is that because of the vault? it didn't prompt for password
+=======
+test
+>>>>>>> b0b143f05565bcd5ab05788c6366b32ddbb09f9f
